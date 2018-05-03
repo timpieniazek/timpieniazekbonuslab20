@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Menu {
 
 	public static HashMap<String, Double> menu = new HashMap<String, Double>();
+
+//	public static ArrayList<String> keys = new ArrayList<String> ((String[]) menu().keySet().toArray()).to;
 	
 	public static String specifier = "%-25s %s%n";
 
@@ -15,16 +18,24 @@ public class Menu {
 		menu.put("Halibut, frozen", 44.99);
 		menu.put("Pork Butt", 68.99);
 		menu.put("Whole Turkey, frozes", 58.99);
-		menu.put("Beef Brisket", 71.99);
+//		menu.put("Beef Brisket", 71.99);
 		return menu;
 	}
 	
 	public static void display() {
-		System.out.printf(specifier, "Products:", "Price:");
+		System.out.printf(specifier, "Product:", "Price per Item:");
 		
-		HashMap<String,Double> products = Menu.menu();
+		HashMap<String,Double> products = menu();
 		for (String product : products.keySet()) {
 			System.out.printf(specifier, " " + product, " " + products.get(product));
 		}
+		System.out.println();
+	}
+	
+	public static boolean validItem(String item) {
+		if (menu().containsKey(item)) {
+			return true;
+		}
+		return false;
 	}
 }
