@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ShoppingListApp {
 	
-	public static String specifier = "%-25s %-12s %-12s %s%n";
+	public static String specifier = "%-12s %-12s %-12s %s%n";
 
 	public static void main(String[] args) {
 
@@ -41,12 +41,14 @@ public class ShoppingListApp {
 			System.out.printf("%nAverage item price is $%s.%n", meanPrice(cart));
 			
 			int highIndex = indexOfHighestPrice(cart);
-			System.out.printf("%nHighest item price is %s at $%s.%n", cart.items.get(highIndex),
-					cart.prices.get(highIndex) * cart.quantities.get(highIndex));
+			String highItem = cart.items.get(highIndex);
+			System.out.printf("%nHighest total price is %s at $%s.%n", highItem,
+					Menu.menu().get(highItem)* cart.quantities.get(highIndex));
 			
 			int lowIndex = indexOfLowestPrice(cart);
-			System.out.printf("%nLowest item price is %s at $%s.%n", cart.items.get(lowIndex),
-					cart.prices.get(lowIndex) * cart.quantities.get(lowIndex));
+			String lowitem = cart.items.get(lowIndex);
+			System.out.printf("%nLowest total price is %s at $%s.%n", lowitem,
+					Menu.menu().get(lowitem) * cart.quantities.get(lowIndex));
 		}
 		
 		System.out.println("\nThank you for your order!\nGoodBye!");
@@ -78,7 +80,7 @@ public class ShoppingListApp {
 
 	public static void displayCart(ShoppingCart cart) {
 		System.out.println("::Shopping Cart::");
-		System.out.printf(specifier, "Items:", "Total price:", "Quantity", "Price per item:");
+		System.out.printf(specifier, "Items:", "Total price:", "Quantity:", "Price per item:");
 
 		for (int i = 0; i < cart.items.size(); i++) {
 			System.out.printf(specifier, " " + cart.items.get(i),
@@ -86,6 +88,8 @@ public class ShoppingListApp {
 					" " + cart.quantities.get(i),
 					" " + Menu.menu().get(cart.items.get(i)));
 		}
+		
+		System.out.println(":::::::::::::::::");
 				
 //		for (String item : cart.items) {
 //			
@@ -114,7 +118,8 @@ public class ShoppingListApp {
 	public static int indexOfLowestPrice(ShoppingCart cart) {
 		int index = 0;
 		for (int i = 0; i < cart.prices.size(); i++) {
-			if (cart.prices.get(index) > cart.prices.get(i)) {
+			if (cart.prices.get(index) * cart.quantities.get(index)
+					> cart.prices.get(i) * cart.quantities.get(i)) {
 				index = i;
 			}
 		}
