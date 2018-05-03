@@ -5,6 +5,8 @@ import java.util.Scanner;
 // 05/01/2018 -- timpieniazek@github
 
 public class ShoppingListApp {
+	
+	public static String specifier = "%-25s %-12s %-12s %s%n";
 
 	public static void main(String[] args) {
 
@@ -46,9 +48,12 @@ public class ShoppingListApp {
 			System.out.printf("%nLowest item price is %s at $%s.%n", cart.items.get(lowIndex),
 					cart.prices.get(lowIndex) * cart.quantities.get(lowIndex));
 		}
+		
+		System.out.println("\nThank you for your order!\nGoodBye!");
 
 	}
 
+	
 	public static void placeOrder(ShoppingCart cart) {
 		String newItem;
 		int newQuantity;
@@ -73,12 +78,18 @@ public class ShoppingListApp {
 
 	public static void displayCart(ShoppingCart cart) {
 		System.out.println("::Shopping Cart::");
-		System.out.printf(Menu.specifier, "Items:", "Price per Item:");
+		System.out.printf(specifier, "Items:", "Total price:", "Quantity", "Price per item:");
 
-		for (String item : cart.items) {
-			System.out.printf(Menu.specifier, " " + item,
-					" " + cart.quantities.get(cart.items.indexOf(item)));
+		for (int i = 0; i < cart.items.size(); i++) {
+			System.out.printf(specifier, " " + cart.items.get(i),
+					" " + cart.prices.get(i),
+					" " + cart.quantities.get(i),
+					" " + Menu.menu().get(cart.items.get(i)));
 		}
+				
+//		for (String item : cart.items) {
+//			
+//		}
 	}
 	
 	public static double meanPrice(ShoppingCart cart) {
